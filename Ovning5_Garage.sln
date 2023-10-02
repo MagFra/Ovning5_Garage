@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Garage", "Garage\Garage.csproj", "{546B4437-9EFC-4C90-875A-F7AC889BA880}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Garage", "Garage\Garage.csproj", "{546B4437-9EFC-4C90-875A-F7AC889BA880}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{E8855A02-B76D-4CD3-9FC9-DA53EA56CC07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{E8855A02-B76D-4CD3-9FC9-DA53EA56CC07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\Interfaces.csproj", "{6E7BA784-3370-48E6-A75A-BEE34DE6D763}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interfaces", "Interfaces\Interfaces.csproj", "{6E7BA784-3370-48E6-A75A-BEE34DE6D763}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{A50C5D36-BF7F-4B1A-B7F4-1410E7D54EB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Garage.UI", "Garage.UI\Garage.UI.csproj", "{A50C5D36-BF7F-4B1A-B7F4-1410E7D54EB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
