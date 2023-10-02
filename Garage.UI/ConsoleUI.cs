@@ -19,5 +19,6 @@ namespace Garage.UI
             } while (string.IsNullOrEmpty(line));
             return line;
         }
+        public void Clear() => Console.Clear();
     }
 }

@@ -1,12 +1,36 @@
 ﻿using Garage.UI;
+
 using System.Text;
 
 namespace Garage
 {
     public class Manager
     {
-        private ConsoleUI uI;
-        public Manager(ConsoleUI cui) { uI = cui; }
+        private readonly ConsoleUI uI;
+        private readonly MenuHandler menu;
+        public Manager(ConsoleUI cui, MenuHandler menuHandler)
+        { 
+            uI = cui;
+            menu = menuHandler;
+        }
+        public void Do()
+        {
+            bool clr = true;
+            bool loop = true;
+            while (loop)
+            {
+                if (clr) { uI.Clear(); }
+                clr = true;
+                switch (Menu()) 
+                {
+                    case 1: { break; }
+                    case 2: { break; }
+                    case 3: { break; }
+                    case 0: {uI.Clear(); uI.WriteLine("Hej då!"); loop = false; break; }
+                    default: { uI.Clear(); clr = false; uI.WriteLine("Du måste välja ett alternativ på menyn."); break; }
+                }
+            }
+        }
         public int Menu()
         {
             StringBuilder menuStringBuilder = new StringBuilder();
@@ -15,10 +39,10 @@ namespace Garage
             menuStringBuilder.AppendLine("3. jkhdh.");
             menuStringBuilder.AppendLine("0. Anvsluta.");
             string menuText = menuStringBuilder.ToString();
-            uI.WriteLine(menuText);
-            if (int.TryParse(uI.ReadLine(), out int result)) {/*Error*/}
 
-            return result; // Ska jag använda en "Tuple"? (int result, bool ok)
+            menu.ViewMenuText(menuText); // ToDo: Ska i framtiden skicka ett MenuObjekt som uppfyller IMenu Interfacet. Då kan ovanstående menybygge utelämnas.
+
+            return menu.RetrieveMenuChoice();
         }
     }
 }

@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Garage.UI\Garage.UI.csproj" />
-    <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
   </ItemGroup>
 
 </Project>
