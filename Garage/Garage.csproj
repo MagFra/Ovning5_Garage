@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Garage.Interfaces\Garage.Interfaces.csproj" />
     <ProjectReference Include="..\Garage.UI\Garage.UI.csproj" />
+    <ProjectReference Include="..\Garage.Vehicles\Garage.Vehicles.csproj" />
   </ItemGroup>
 
 </Project>

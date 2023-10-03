@@ -7,11 +7,11 @@ namespace Garage
     public class Manager
     {
         private readonly ConsoleUI uI;
-        private readonly MenuHandler menu;
+        private readonly MenuHandler menuHandler;
         public Manager(ConsoleUI cui, MenuHandler menuHandler)
         { 
             uI = cui;
-            menu = menuHandler;
+            this.menuHandler = menuHandler;
         }
         public void Do()
         {
@@ -38,11 +38,10 @@ namespace Garage
             menuStringBuilder.AppendLine("2. jkhdh.");
             menuStringBuilder.AppendLine("3. jkhdh.");
             menuStringBuilder.AppendLine("0. Anvsluta.");
-            string menuText = menuStringBuilder.ToString();
 
-            menu.ViewMenuText(menuText); // ToDo: Ska i framtiden skicka ett MenuObjekt som uppfyller IMenu Interfacet. Då kan ovanstående menybygge utelämnas.
+            menuHandler.ViewMenuText(menuStringBuilder); // ToDo: Ska i framtiden skicka ett MenuObjekt som uppfyller IMenu Interfacet. Då kan ovanstående menybygge utelämnas.
 
-            return menu.RetrieveMenuChoice();
+            return menuHandler.RetrieveMenuChoice();
         }
     }
 }

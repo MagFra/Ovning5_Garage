@@ -22,4 +22,11 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Garage.Interfaces\Garage.Interfaces.csproj" />
+    <ProjectReference Include="..\Garage.UI\Garage.UI.csproj" />
+    <ProjectReference Include="..\Garage.Vehicles\Garage.Vehicles.csproj" />
+    <ProjectReference Include="..\Garage\Garage.csproj" />
+  </ItemGroup>
+
 </Project>

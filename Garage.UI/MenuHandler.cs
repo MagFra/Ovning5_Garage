@@ -13,8 +13,9 @@ namespace Garage.UI
         {
             uI = consoleUI;
         }
-        public void ViewMenuText(string menuText) // ToDo: Ska i framtiden ta emot ett IMenuObjekt som bl.a. innehåller meny texten.
+        public void ViewMenuText(StringBuilder menuStringBuilder) // ToDo: Ska i framtiden ta emot ett IMenuObjekt som bl.a. innehåller meny texten.
         {
+            string menuText = menuStringBuilder.ToString();
             uI.WriteLine(menuText);
         }
         public int RetrieveMenuChoice()
