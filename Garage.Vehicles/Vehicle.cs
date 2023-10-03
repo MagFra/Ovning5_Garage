@@ -4,7 +4,7 @@ namespace Garage.Vehicles
 {
     public class Vehicle : IVehicle
     {
-        public string Registation { get; private set; }
+        public string Registration { get; private set; }
         public string Brand { get; private set; }
         public string Model { get; private set; }
         public int Year { get; private set; }
@@ -14,7 +14,7 @@ namespace Garage.Vehicles
 
         public Vehicle(string registation, string brand, string model, int year, string collor, int nrOfWheels)
         {
-            Registation = registation;
+            Registration = registation;
             Brand = brand;
             Model = model;
             Year = year;

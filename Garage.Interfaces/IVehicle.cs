@@ -6,7 +6,7 @@
         string Collor { get; }
         string Model { get; }
         int NrOfWheels { get; }
-        string Registation { get; }
+        string Registration { get; }
         int Year { get; }
     }
 }
