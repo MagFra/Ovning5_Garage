@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Garage
 {
-    internal class Garage<T> : IEnumerable<T> where T : IVehicle
+    public class ParkingGarage<T> : IEnumerable<T> where T : IVehicle
     {
         private readonly T[] _vehicles;
-        public Garage(int size)
+        public ParkingGarage(int size)
         {
             _vehicles = new T[size];
             Array.Clear(_vehicles);
@@ -19,7 +19,7 @@ namespace Garage
         public void AddVehicle(T vehicle)
         {
             if(vehicle == null) throw new ArgumentNullException(paramName: nameof(vehicle));
-            if (_vehicles.Length <= _vehicles.Count()) throw new Exception("The garage is full!");
+            // if (_vehicles.Length <= _vehicles.Count()) throw new Exception("The garage is full!");
             // _vehicles[0]. = vehicle;
             _vehicles.SetValue(vehicle, 0);
         }
@@ -38,6 +38,11 @@ namespace Garage
                     paramName: $"{nameof(index)}");
             }
             return _vehicles[index]; 
+        }
+        public int Length()
+        {
+            int temp = _vehicles.GetLength(0);
+            return temp;
         }
 
         public IEnumerator<T> GetEnumerator()
