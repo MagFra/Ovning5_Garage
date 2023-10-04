@@ -63,16 +63,13 @@ namespace UnitTests.Vehicles
             string expectedCollor = "Red";
             int expectedNrOfWheels = 4;
 
-            // Act
-            Vehicle vehicle = new Vehicle(registation: expectedRegistration,
+            // Act & Assert
+            var ex = Assert.Throws<ArgumentNullException>(() => new Vehicle(registation: expectedRegistration,
                                       brand: expectedBrand,
                                       model: expectedModel,
                                       year: expectedYear,
                                       collor: expectedCollor,
-                                      nrOfWheels: expectedNrOfWheels);
-
-            // Assert
-            // var ex = Assert.Throws<ArgumentNullException>();
+                                      nrOfWheels: expectedNrOfWheels));
 
         }
     }

@@ -21,5 +21,25 @@ namespace Garage.Vehicles
             Collor = collor;
             NrOfWheels = nrOfWheels;
         }
+
+        
+        public override bool Equals(object? obj)
+        {
+            if (obj == null) return false;
+            if (obj == this) return true;
+            if (obj.GetType != this.GetType) return false;
+            Vehicle v = (Vehicle)obj;
+
+            if (v.Registration == Registration ||
+                v.Brand == Brand ||
+                v.Model == Model ||
+                v.Year == Year ||
+                v.Collor == Collor ||
+                v.NrOfWheels == NrOfWheels) return true; else return false;
+        }
+
+        public override int GetHashCode() => base.GetHashCode();
+        // Jag är heligt ointreserad av GetHashCode().
+        // Men VS krävde att jag gjorde en "override" på den när jag gjorde det på Equals().           
     }
 }

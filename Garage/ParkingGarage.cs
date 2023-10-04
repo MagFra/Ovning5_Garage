@@ -10,18 +10,24 @@ namespace Garage
 {
     public class ParkingGarage<T> : IEnumerable<T> where T : IVehicle
     {
-        private readonly T[] _vehicles;
+        private int maxSize;
+        private T[] _vehicles = new T[0];
         public ParkingGarage(int size)
         {
-            _vehicles = new T[size];
-            Array.Clear(_vehicles);
+            this.maxSize = size;
         }
         public void AddVehicle(T vehicle)
         {
             if(vehicle == null) throw new ArgumentNullException(paramName: nameof(vehicle));
             // if (_vehicles.Length <= _vehicles.Count()) throw new Exception("The garage is full!");
-            // _vehicles[0]. = vehicle;
-            _vehicles.SetValue(vehicle, 0);
+
+            int oldSize = _vehicles.Length;
+            int newSize = oldSize + 1;
+            T[] newArray = new T[newSize];
+            Array.Copy(_vehicles, newArray, oldSize);
+
+            newArray.SetValue(vehicle, oldSize);
+            _vehicles = newArray;
         }
         public T ByIndex(int index)
         {
@@ -39,18 +45,11 @@ namespace Garage
             }
             return _vehicles[index]; 
         }
-        public int Length()
-        {
-            int temp = _vehicles.GetLength(0);
-            return temp;
-        }
+        public int Length() => _vehicles.Length;
 
         public IEnumerator<T> GetEnumerator()
         {
-            foreach (T item in _vehicles)
-            {
-                yield return item;
-            }
+            yield return (T)_vehicles.GetEnumerator();
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
