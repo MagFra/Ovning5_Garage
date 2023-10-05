@@ -1,25 +1,19 @@
 ﻿using Garage.Vehicles;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Garage
 {
-    public class ParkingGarage<T> : IEnumerable<T> where T : IVehicle
+    public class ParkingGarage<T> : IGarage<T> where T : IVehicle
     {
-        private int maxSize;
+        public int Capacity { get; private set; }
         private T[] _vehicles = new T[0];
-        public ParkingGarage(int size)
-        {
-            this.maxSize = size;
-        }
+        public int Length => _vehicles.Length;
+        public bool IsSpaceLeft => Length < Capacity;
+        public ParkingGarage(int capacity) => Capacity = capacity;
         public void AddVehicle(T vehicle)
         {
-            if(vehicle == null) throw new ArgumentNullException(paramName: nameof(vehicle));
-            // if (_vehicles.Length <= _vehicles.Count()) throw new Exception("The garage is full!");
+            if (vehicle == null) throw new ArgumentNullException(paramName: nameof(vehicle));
+            if (!IsSpaceLeft) throw new Exception("This garage is full!");
 
             int oldSize = _vehicles.Length;
             int newSize = oldSize + 1;
@@ -29,9 +23,44 @@ namespace Garage
             newArray.SetValue(vehicle, oldSize);
             _vehicles = newArray;
         }
+        public int GetIndexByRegistration(string registration)
+        {
+            if (string.IsNullOrWhiteSpace(registration))
+            {
+                throw new ArgumentNullException(paramName: nameof(registration),
+                                                message: "There is no registration.");
+            }
+            foreach (T v in _vehicles)
+            {
+                if (v.Registration == registration)
+                {
+                    return Array.IndexOf(_vehicles, v);
+                }
+            }
+            throw new Exception($"No vehicle with the registration \"{registration}\" is parked in this garage.");
+        }
+        public bool RemoveVehicleByIndex(int index)
+        {
+            if (index < 0 || index >= _vehicles.Length)
+            {
+                throw new ArgumentOutOfRangeException(paramName: nameof(index));
+            }
+            int tempSize = _vehicles.Length - 1;
+            T[] tempVehicle = new T[tempSize];
+            if (index > 0)
+            {
+                Array.Copy(_vehicles, tempVehicle, index);
+            }
+            if (index < _vehicles.Length - 1)
+            {
+                Array.Copy(_vehicles, index + 1, tempVehicle, index, tempVehicle.Length - index);
+            }
+            _vehicles = tempVehicle;
+            return _vehicles.Length == tempSize;
+        }
         public T ByIndex(int index)
         {
-            if (index < 0 || index >= _vehicles.Length) 
+            if (index < 0 || index >= _vehicles.Length)
             {
                 throw new ArgumentOutOfRangeException(
                     paramName: $"{nameof(index)}",
@@ -43,9 +72,8 @@ namespace Garage
                     message: $"The index does not have a vehicle.",
                     paramName: $"{nameof(index)}");
             }
-            return _vehicles[index]; 
+            return _vehicles[index];
         }
-        public int Length() => _vehicles.Length;
 
         public IEnumerator<T> GetEnumerator()
         {
