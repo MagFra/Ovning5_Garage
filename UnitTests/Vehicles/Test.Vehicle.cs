@@ -70,6 +70,7 @@ namespace UnitTests.Vehicles
                                       year: expectedYear,
                                       collor: expectedCollor,
                                       nrOfWheels: expectedNrOfWheels));
+            Assert.Equal("Registration is missing! (Parameter 'registration')", ex.Message);
 
         }
     }

@@ -4,7 +4,8 @@ namespace Garage.Vehicles
 {
     public class Vehicle : IVehicle
     {
-        public string Registration { get; private set; }
+        private string registration = string.Empty;
+        public string Registration { get => registration; private set => registration = VerifyRegistration(value).ToUpper(); }
         public string Brand { get; private set; }
         public string Model { get; private set; }
         public int Year { get; private set; }
@@ -21,8 +22,14 @@ namespace Garage.Vehicles
             Collor = collor;
             NrOfWheels = nrOfWheels;
         }
-
-        
+        protected virtual string VerifyRegistration(string registration)
+        {
+            if (string.IsNullOrWhiteSpace(registration))
+            {
+                throw new ArgumentNullException(paramName: nameof(registration), message: "Registration is missing!");
+            }
+            return registration.Trim();
+        }
         public override bool Equals(object? obj)
         {
             if (obj == null) return false;

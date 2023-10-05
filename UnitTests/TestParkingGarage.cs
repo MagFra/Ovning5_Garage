@@ -34,7 +34,7 @@
             int actualLengthBefore = garage.Length;
             garage.AddVehicle(expectedVehicle);
             int actualLengthAfter = garage.Length;
-            IVehicle actualVehicle = garage.ByIndex(0);
+            IVehicle actualVehicle = garage.GetVehicleByIndex(0);
 
             // Assert
             Assert.Equal(expectedLengthBefore, actualLengthBefore);
@@ -114,8 +114,8 @@
             int actualLengthBefore = garage.Length;
             var result = garage.RemoveVehicleByIndex(index);
             int actualLengthAfter = garage.Length;
-            IVehicle actualVehicle2 = garage.ByIndex(0);
-            IVehicle actualVehicle3 = garage.ByIndex(1);
+            IVehicle actualVehicle2 = garage.GetVehicleByIndex(0);
+            IVehicle actualVehicle3 = garage.GetVehicleByIndex(1);
 
 
             // Assert
@@ -158,8 +158,8 @@
             int actualLengthBefore = garage.Length;
             var result = garage.RemoveVehicleByIndex(index);
             int actualLengthAfter = garage.Length;
-            IVehicle actualVehicle1 = garage.ByIndex(0);
-            IVehicle actualVehicle2 = garage.ByIndex(1);
+            IVehicle actualVehicle1 = garage.GetVehicleByIndex(0);
+            IVehicle actualVehicle2 = garage.GetVehicleByIndex(1);
 
 
             // Assert
@@ -202,8 +202,8 @@
             int actualLengthBefore = garage.Length;
             var result = garage.RemoveVehicleByIndex(index);
             int actualLengthAfter = garage.Length;
-            IVehicle actualVehicle1 = garage.ByIndex(0);
-            IVehicle actualVehicle3 = garage.ByIndex(1);
+            IVehicle actualVehicle1 = garage.GetVehicleByIndex(0);
+            IVehicle actualVehicle3 = garage.GetVehicleByIndex(1);
 
 
             // Assert

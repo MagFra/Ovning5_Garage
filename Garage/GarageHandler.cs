@@ -1,12 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Garage.Vehicles;
 
 namespace Garage
 {
-    internal class GarageHandler
+    public class GarageHandler
     {
+        private readonly int capacity = 10;
+        private readonly IGarage<IVehicle> garage;
+        public GarageHandler() => garage = new ParkingGarage<IVehicle>(capacity);
+        public (IVehicle?,bool) FindeByRegistration(string registration)
+        {
+            try
+            {
+                int index = garage.GetIndexByRegistration(registration);
+                return (garage.GetVehicleByIndex(index), true);
+            }
+            catch (Exception)
+            {
+                return (null,false);
+            }
+
+        }
+
     }
 }

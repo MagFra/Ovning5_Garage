@@ -9,7 +9,7 @@ namespace Garage
         int Length { get; }
 
         void AddVehicle(T vehicle);
-        T ByIndex(int index);
+        T GetVehicleByIndex(int index);
         int GetIndexByRegistration(string registration);
         bool RemoveVehicleByIndex(int index);
     }
