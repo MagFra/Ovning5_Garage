@@ -23,5 +23,13 @@ namespace Garage.Vehicles
                    year: year,
                    collor: collor,
                    nrOfWheels: nrOfWheels) => Fueltype = fueltype;
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"Bilen:\n");
+            sb.Append(base.ToString());
+            sb.Append($"Bränsle:\t\t[{Fueltype}]\n");
+            return sb.ToString();
+        }
     }
 }

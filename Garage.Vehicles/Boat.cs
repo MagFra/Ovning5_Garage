@@ -1,7 +1,9 @@
 ﻿using Garage.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,6 +25,14 @@ namespace Garage.Vehicles
                    model: model,
                    year: year,
                    collor: collor,
-                   nrOfWheels: nrOfWheels) => Lenght = lenght;
+                   nrOfWheels: 0) => Lenght = lenght;
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"Båten:\n");
+            sb.Append(base.ToString());
+            sb.Append($"Båtens längd:\t\t[{Lenght}]\n");
+            return sb.ToString();
+        }
     }
 }

@@ -27,5 +27,13 @@ namespace Garage.Vehicles
         {
             CylinderVolume = cylinderVolume;
         }
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"Motorcykeln:\n");
+            sb.Append(base.ToString());
+            sb.Append($"Cylindervolym:\t\t[{CylinderVolume}]\n");
+            return sb.ToString();
+        }
     }
 }

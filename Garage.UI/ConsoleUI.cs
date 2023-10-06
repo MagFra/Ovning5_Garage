@@ -8,20 +8,17 @@ namespace Garage.UI
 {
     public class ConsoleUI
     {
-        public void WriteLine(string text) => Console.WriteLine(text);
-        public string ReadLine()
+        public void WriteLine(string text = "") => Console.WriteLine(text);
+        public string? ReadLine(string text = "", bool verify = true)
         {
             string? line;
             do
             {
+                Console.Write(text);
                 line = Console.ReadLine();
-                if (string.IsNullOrEmpty(line)) { WriteLine("Du måste skriva något."); }
-            } while (string.IsNullOrEmpty(line));
+                if (string.IsNullOrEmpty(line) && verify) { WriteLine("Du måste skriva något."); }
+            } while (string.IsNullOrEmpty(line) && verify);
             return line;
-        }
-        public string ReadLine(string text)
-        { 
-            WriteLine(text); return ReadLine();
         }
         public int ReadInt(string text)
         {

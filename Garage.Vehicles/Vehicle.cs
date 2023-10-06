@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using Garage.Interfaces;
+using System.Reflection;
+using System.Text;
 
 namespace Garage.Vehicles
 {
@@ -30,6 +32,17 @@ namespace Garage.Vehicles
             }
             return registration.Trim();
         }
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"Registreringsnummer:\t[{registration}]\n");
+            sb.Append($"Fabrikat:\t\t[{Brand}]\n");
+            sb.Append($"Modell:\t\t\t[{Model}]\n");
+            sb.Append($"Årsmodell:\t\t[{Year}]\n");
+            sb.Append($"Färg:\t\t\t[{Collor}]\n");
+            if (this.GetType() != typeof(Boat)) { sb.Append($"Antal hjul:\t\t[{NrOfWheels}]\n"); }
+            return sb.ToString();
+        }
         public override bool Equals(object? obj)
         {
             if (obj == null) return false;
@@ -44,7 +57,6 @@ namespace Garage.Vehicles
                 v.Collor == Collor ||
                 v.NrOfWheels == NrOfWheels) return true; else return false;
         }
-
         public override int GetHashCode() => base.GetHashCode();
         // Jag är heligt ointreserad av GetHashCode().
         // Men VS krävde att jag gjorde en "override" på den när jag gjorde det på Equals().           

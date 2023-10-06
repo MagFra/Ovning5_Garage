@@ -23,5 +23,13 @@ namespace Garage.Vehicles
                    year: year,
                    collor: collor,
                    nrOfWheels: nrOfWheels) => NumberOfEngines = numberOfEngines;
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"Flygplanet:\n");
+            sb.Append(base.ToString());
+            sb.Append($"Atalet motorer:\t\t[{NumberOfEngines}]\n");
+            return sb.ToString();
+        }
     }
 }

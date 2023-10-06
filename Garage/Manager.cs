@@ -1,5 +1,6 @@
-﻿using Garage.UI;
-
+﻿using Garage.Interfaces;
+using Garage.UI;
+using Garage.Vehicles;
 using System.Text;
 
 namespace Garage
@@ -8,10 +9,14 @@ namespace Garage
     {
         private readonly ConsoleUI uI;
         private readonly MenuHandler menuHandler;
-        public Manager(ConsoleUI cui, MenuHandler menuHandler)
+        private readonly NewVehicleCreator creator;
+        private readonly GarageHandler garageHandler;
+        public Manager(ConsoleUI cui, MenuHandler menuHandler, NewVehicleCreator creator, GarageHandler garageHandler)
         { 
             uI = cui;
             this.menuHandler = menuHandler;
+            this.creator = creator;
+            this.garageHandler = garageHandler;
         }
         public void Do()
         {
@@ -23,7 +28,7 @@ namespace Garage
                 clr = true;
                 switch (Menu()) 
                 {
-                    case 1: { break; }
+                    case 1: { TestThe_NewVehicleCreator(); break; }
                     case 2: { break; }
                     case 3: { break; }
                     case 0: {uI.Clear(); uI.WriteLine("Hej då!"); loop = false; break; }
@@ -34,7 +39,7 @@ namespace Garage
         public int Menu()
         {
             StringBuilder menuStringBuilder = new StringBuilder();
-            menuStringBuilder.AppendLine("1. jkhdh.");
+            menuStringBuilder.AppendLine("1. Testa \"NewVehicleCreator\".");
             menuStringBuilder.AppendLine("2. jkhdh.");
             menuStringBuilder.AppendLine("3. jkhdh.");
             menuStringBuilder.AppendLine("0. Anvsluta.");
@@ -42,6 +47,12 @@ namespace Garage
             menuHandler.ViewMenuText(menuStringBuilder); // ToDo: Ska i framtiden skicka ett MenuObjekt som uppfyller IMenu Interfacet. Då kan ovanstående menybygge utelämnas.
 
             return menuHandler.RetrieveMenuChoice();
+        }
+        public void TestThe_NewVehicleCreator()
+        {
+            IVehicle testVehicle = creator.CreateNewVehicle();
+
+            garageHandler.WriteVehicle(testVehicle);
         }
     }
 }

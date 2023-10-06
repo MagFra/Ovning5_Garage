@@ -21,21 +21,32 @@ namespace Garage
         public IVehicle CreateNewVehicle()
         {
             StringBuilder menuStringBuilder = new StringBuilder();
-            menuStringBuilder.AppendLine("Välg en fordonstyp!\n");
-            menuStringBuilder.AppendLine("1. Flygplan.\n");
-            menuStringBuilder.AppendLine("2. Båt.\n");
-            menuStringBuilder.AppendLine("3. Buss.\n");
-            menuStringBuilder.AppendLine("4. Bil.\n");
-            menuStringBuilder.AppendLine("5. Motorcykel.\n");
+            menuStringBuilder.Append("Välg en fordonstyp!\n");
+            menuStringBuilder.Append("1. Flygplan.\n");
+            menuStringBuilder.Append("2. Båt.\n");
+            menuStringBuilder.Append("3. Buss.\n");
+            menuStringBuilder.Append("4. Bil.\n");
+            menuStringBuilder.Append("5. Motorcykel.\n");
             int chois = menu.RetrieveMenuChoice(menuStringBuilder: menuStringBuilder,
                                                 nrOfChoices: 5,
                                                 min: 1);
-            string registration = uI.ReadLine("Ange registreringsnummer: ").Trim().ToUpper();
-            string brand = uI.ReadLine("Ange märke: ").Trim();
-            string model = uI.ReadLine("Ange modell: ").Trim();
+            string vehicle = string.Empty;
+            switch (chois)
+            {
+                case 1: { vehicle = "Flygplan:"; break; }
+                case 2: { vehicle = "Båt:"; break; }
+                case 3: { vehicle = "Buss:"; break; }
+                case 4: { vehicle = "Bil:"; break; }
+                case 5: { vehicle = "Motorcykel:"; break; }
+            }
+            uI.Clear(); uI.WriteLine(vehicle);
+            string registration = uI.ReadLine("Ange registreringsnummer: ")!.Trim().ToUpper();
+            string brand = uI.ReadLine("Ange märke: ")!.Trim();
+            string model = uI.ReadLine("Ange modell: ")!.Trim();
             int year = uI.ReadInt("Ange årsmodell: ");
-            string collor = uI.ReadLine("Ange färg: ").Trim();
-            int nrOfWheels = uI.ReadInt("Ange antalet hjul: ");
+            string collor = uI.ReadLine("Ange färg: ")!.Trim();
+            int nrOfWheels;
+            if (chois == 2) { nrOfWheels = 0; } else { nrOfWheels = uI.ReadInt("Ange antalet hjul: "); }
             switch(chois)
             {
                 case 1: { return MakeAirplane(registation: registration,
@@ -86,7 +97,7 @@ namespace Garage
         }
         private IBoat MakeBoat(string registation, string brand, string model, int year, string collor, int nrOfWheels) 
         {
-            int lenght = uI.ReadInt("Ange båtens längd.");
+            int lenght = uI.ReadInt("Ange båtens längd: ");
             return new Boat(registation: registation,
                             brand: brand,
                             model: model,
@@ -108,7 +119,7 @@ namespace Garage
         }
         private ICar MakeCar(string registation, string brand, string model, int year, string collor, int nrOfWheels) 
         {
-            string fueltype = uI.ReadLine("Ange vad för bränsle din bil använder: ").Trim();
+            string fueltype = uI.ReadLine("Ange vad för bränsle din bil använder: ")!.Trim();
             return new Car(registation: registation,
                            brand: brand,
                            model: model,

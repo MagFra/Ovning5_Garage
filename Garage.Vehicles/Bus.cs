@@ -27,5 +27,13 @@ namespace Garage.Vehicles
         {
             NumberOfSeats = numberOfSeats;
         }
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"Bussen:\n");
+            sb.Append(base.ToString());
+            sb.Append($"Atalet sittplatser:\t[{NumberOfSeats}]\n");
+            return sb.ToString();
+        }
     }
 }
