@@ -19,6 +19,18 @@ namespace Garage.UI
             } while (string.IsNullOrEmpty(line));
             return line;
         }
+        public string ReadLine(string text)
+        { 
+            WriteLine(text); return ReadLine();
+        }
+        public int ReadInt(string text)
+        {
+            while (true) 
+            { 
+                if(int.TryParse(ReadLine(text), out int result)) return result;
+                WriteLine("Du måste ange ett giltigt heltal.");
+            }
+        }
         public void Clear() => Console.Clear();
     }
 }

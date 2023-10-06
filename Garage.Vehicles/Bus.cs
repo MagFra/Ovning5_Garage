@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Garage.Vehicles
 {
-    internal class Bus : Vehicle, IBus
+    public class Bus : Vehicle, IBus
     {
         public int NumberOfSeats { get; private set; }
         public Bus(string registation,
