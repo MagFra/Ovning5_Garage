@@ -57,7 +57,7 @@ namespace Garage
             if(!garageHandler.HasSpace)
             {
                 uI.WriteLine("Vi kan tyvärr inte parkera några nya fordon just nu. Garget är fullt.");
-                uI.ReadLine(verify: false);
+                _ = uI.ReadLine(verify: false);
                 return;
             }
             IVehicle newVehicle = creator.CreateNewVehicle();
@@ -78,11 +78,11 @@ namespace Garage
             if(!result)
             {
                 uI.WriteLine("Okänt fel vid parkeringen!\nTrots våra rigorösa kontroller av både utrymme i garaget och att det inte är en dublett av registreringsnumret, så verkar det som om något av dem förhindrare oss att parkera ditt fordon.");
-                uI.ReadLine(verify: false);
+                _ = uI.ReadLine(verify: false);
                 return;
             }
             uI.WriteLine("Vi har parkerat ditt fordon.");
-            uI.ReadLine(verify: false);
+            _ = uI.ReadLine(verify: false);
         }
         private void Collect()
         {

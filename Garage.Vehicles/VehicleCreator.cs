@@ -36,11 +36,11 @@ namespace Garage.Vehicles
                 case 5: { vehicle = "Motorcykel:"; break; }
             }
             uI.Clear(); uI.WriteLine(vehicle);
-            string registration = uI.ReadLine("Ange registreringsnummer: ")!.Trim().ToUpper();
-            string brand = uI.ReadLine("Ange märke: ")!.Trim();
-            string model = uI.ReadLine("Ange modell: ")!.Trim();
+            string registration = uI.ReadLine("Ange registreringsnummer: ").Trim().ToUpper();
+            string brand = uI.ReadLine("Ange märke: ").Trim();
+            string model = uI.ReadLine("Ange modell: ").Trim();
             int year = uI.ReadInt("Ange årsmodell: ");
-            string collor = uI.ReadLine("Ange färg: ")!.Trim();
+            string collor = uI.ReadLine("Ange färg: ").Trim();
             int nrOfWheels;
             if (chois == 2) { nrOfWheels = 0; } else { nrOfWheels = uI.ReadInt("Ange antalet hjul: "); }
             switch (chois)
@@ -129,7 +129,7 @@ namespace Garage.Vehicles
         }
         private ICar MakeCar(string registation, string brand, string model, int year, string collor, int nrOfWheels)
         {
-            string fueltype = uI.ReadLine("Ange vad för bränsle din bil använder: ")!.Trim();
+            string fueltype = uI.ReadLine("Ange vad för bränsle din bil använder: ").Trim();
             return new Car(registation: registation,
                            brand: brand,
                            model: model,
