@@ -1,4 +1,4 @@
-﻿namespace Garage.Vehicles
+﻿namespace Garage.Interfaces
 {
     public interface IVehicle
     {

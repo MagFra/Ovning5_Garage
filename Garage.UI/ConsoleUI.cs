@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Garage.Interfaces;
 
 namespace Garage.UI
 {
@@ -29,5 +25,15 @@ namespace Garage.UI
             }
         }
         public void Clear() => Console.Clear();
+        public void WriteVehicle(IVehicle vehicle, bool list = false)
+        {
+            if (list) { WriteLine(); } else { Clear(); }
+            if (vehicle is IAirplane airplane) { WriteLine(airplane.ToString()!); }
+            if (vehicle is IBoat boat) { WriteLine(boat.ToString()!); }
+            if (vehicle is IBus bus) { WriteLine(bus.ToString()!); }
+            if (vehicle is ICar car) { WriteLine(car.ToString()!); }
+            if (vehicle is IMotorcycle motorcycle) { WriteLine(motorcycle.ToString()!); }
+            if (!list) _ = ReadLine(verify: false);
+        }
     }
 }

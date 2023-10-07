@@ -1,19 +1,15 @@
 ﻿using Garage.Interfaces;
 using Garage.UI;
 using Garage.Vehicles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Garage
+namespace Garage.Vehicles
 {
-    public class NewVehicleCreator
+    public class VehicleCreator
     {
         private MenuHandler menu;
         private ConsoleUI uI;
-        public NewVehicleCreator(MenuHandler menu, ConsoleUI uI)
+        public VehicleCreator(MenuHandler menu, ConsoleUI uI)
         {
             this.menu = menu;
             this.uI = uI;

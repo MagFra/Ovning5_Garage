@@ -1,4 +1,5 @@
 ﻿using Garage.Vehicles;
+using Garage.Interfaces;
 using System.Collections;
 
 namespace Garage

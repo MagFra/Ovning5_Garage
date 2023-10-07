@@ -1,6 +1,4 @@
-﻿using Garage.Vehicles;
-
-namespace Garage
+﻿namespace Garage.Interfaces
 {
     public interface IGarage<T>: IEnumerable<T> where T : IVehicle
     {

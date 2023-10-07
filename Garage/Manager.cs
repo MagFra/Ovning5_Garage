@@ -9,9 +9,9 @@ namespace Garage
     {
         private readonly ConsoleUI uI;
         private readonly MenuHandler menuHandler;
-        private readonly NewVehicleCreator creator;
+        private readonly VehicleCreator creator;
         private readonly GarageHandler garageHandler;
-        public Manager(ConsoleUI cui, MenuHandler menuHandler, NewVehicleCreator creator, GarageHandler garageHandler)
+        public Manager(ConsoleUI cui, MenuHandler menuHandler, VehicleCreator creator, GarageHandler garageHandler)
         { 
             uI = cui;
             this.menuHandler = menuHandler;
@@ -44,15 +44,16 @@ namespace Garage
             menuStringBuilder.AppendLine("3. jkhdh.");
             menuStringBuilder.AppendLine("0. Anvsluta.");
 
-            menuHandler.ViewMenuText(menuStringBuilder); // ToDo: Ska i framtiden skicka ett MenuObjekt som uppfyller IMenu Interfacet. Då kan ovanstående menybygge utelämnas.
+            // menuHandler.ViewMenuText(menuStringBuilder);
 
-            return menuHandler.RetrieveMenuChoice();
+            return menuHandler.RetrieveMenuChoice(menuStringBuilder: menuStringBuilder, nrOfChoices: 4);
+            // ToDo: Ska i framtiden skicka ett MenuObjekt som uppfyller IMenu Interfacet. Då kan ovanstående menybygge utelämnas.
         }
         public void TestThe_NewVehicleCreator()
         {
             IVehicle testVehicle = creator.CreateNewVehicle();
 
-            garageHandler.WriteVehicle(testVehicle);
+            uI.WriteVehicle(testVehicle);
         }
     }
 }
