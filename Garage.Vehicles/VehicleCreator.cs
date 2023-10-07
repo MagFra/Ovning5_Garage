@@ -1,15 +1,14 @@
 ﻿using Garage.Interfaces;
 using Garage.UI;
-using Garage.Vehicles;
 using System.Text;
 
 namespace Garage.Vehicles
 {
-    public class VehicleCreator
+    public class VehicleCreator : IVehicleCreator
     {
-        private MenuHandler menu;
+        private IMenuHandler menu;
         private ConsoleUI uI;
-        public VehicleCreator(MenuHandler menu, ConsoleUI uI)
+        public VehicleCreator(IMenuHandler menu, ConsoleUI uI)
         {
             this.menu = menu;
             this.uI = uI;
@@ -23,9 +22,10 @@ namespace Garage.Vehicles
             menuStringBuilder.Append("3. Buss.\n");
             menuStringBuilder.Append("4. Bil.\n");
             menuStringBuilder.Append("5. Motorcykel.\n");
+            int firstChois = 1, nrOfChoices = 5; // (1 - 5) Inclusive.
             int chois = menu.RetrieveMenuChoice(menuStringBuilder: menuStringBuilder,
-                                                nrOfChoices: 5,
-                                                min: 1);
+                                                nrOfChoices: nrOfChoices,
+                                                firstChois: firstChois);
             string vehicle = string.Empty;
             switch (chois)
             {
@@ -43,39 +43,53 @@ namespace Garage.Vehicles
             string collor = uI.ReadLine("Ange färg: ")!.Trim();
             int nrOfWheels;
             if (chois == 2) { nrOfWheels = 0; } else { nrOfWheels = uI.ReadInt("Ange antalet hjul: "); }
-            switch(chois)
+            switch (chois)
             {
-                case 1: { return MakeAirplane(registation: registration,
-                                              brand: brand,
-                                              model: model,
-                                              year: year,
-                                              collor: collor,
-                                              nrOfWheels: nrOfWheels); }
-                case 2: { return MakeBoat(registation: registration,
-                                              brand: brand,
-                                              model: model,
-                                              year: year,
-                                              collor: collor,
-                                              nrOfWheels: nrOfWheels); }
-                case 3: { return MakeBus(registation: registration,
-                                              brand: brand,
-                                              model: model,
-                                              year: year,
-                                              collor: collor,
-                                              nrOfWheels: nrOfWheels); }
-                case 4: { return MakeCar(registation: registration,
+                case 1:
+                    {
+                        return MakeAirplane(registation: registration,
                                               brand: brand,
                                               model: model,
                                               year: year,
                                               collor: collor,
                                               nrOfWheels: nrOfWheels);
                     }
-                case 5: { return MakeMotorcykle(registation: registration,
+                case 2:
+                    {
+                        return MakeBoat(registation: registration,
                                               brand: brand,
                                               model: model,
                                               year: year,
                                               collor: collor,
-                                              nrOfWheels: nrOfWheels); }
+                                              nrOfWheels: nrOfWheels);
+                    }
+                case 3:
+                    {
+                        return MakeBus(registation: registration,
+                                              brand: brand,
+                                              model: model,
+                                              year: year,
+                                              collor: collor,
+                                              nrOfWheels: nrOfWheels);
+                    }
+                case 4:
+                    {
+                        return MakeCar(registation: registration,
+                                              brand: brand,
+                                              model: model,
+                                              year: year,
+                                              collor: collor,
+                                              nrOfWheels: nrOfWheels);
+                    }
+                case 5:
+                    {
+                        return MakeMotorcykle(registation: registration,
+                                              brand: brand,
+                                              model: model,
+                                              year: year,
+                                              collor: collor,
+                                              nrOfWheels: nrOfWheels);
+                    }
             }
 
             return null!;
@@ -91,7 +105,7 @@ namespace Garage.Vehicles
                                 nrOfWheels: nrOfWheels,
                                 numberOfEngines: numberOfEngines);
         }
-        private IBoat MakeBoat(string registation, string brand, string model, int year, string collor, int nrOfWheels) 
+        private IBoat MakeBoat(string registation, string brand, string model, int year, string collor, int nrOfWheels)
         {
             int lenght = uI.ReadInt("Ange båtens längd: ");
             return new Boat(registation: registation,
@@ -102,7 +116,7 @@ namespace Garage.Vehicles
                             nrOfWheels: nrOfWheels,
                             lenght: lenght);
         }
-        private IBus MakeBus(string registation, string brand, string model, int year, string collor, int nrOfWheels) 
+        private IBus MakeBus(string registation, string brand, string model, int year, string collor, int nrOfWheels)
         {
             int numberOfSeats = uI.ReadInt("Ange antalet sittplatser i bussen: ");
             return new Bus(registation: registation,
@@ -111,9 +125,9 @@ namespace Garage.Vehicles
                            year: year,
                            collor: collor,
                            nrOfWheels: nrOfWheels,
-                           numberOfSeats: numberOfSeats); 
+                           numberOfSeats: numberOfSeats);
         }
-        private ICar MakeCar(string registation, string brand, string model, int year, string collor, int nrOfWheels) 
+        private ICar MakeCar(string registation, string brand, string model, int year, string collor, int nrOfWheels)
         {
             string fueltype = uI.ReadLine("Ange vad för bränsle din bil använder: ")!.Trim();
             return new Car(registation: registation,
