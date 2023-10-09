@@ -1,5 +1,4 @@
 ﻿using Garage.Interfaces;
-using Garage.UI;
 
 namespace Garage
 {
@@ -75,8 +74,23 @@ namespace Garage
 
         internal bool UnparkByRegistration(string registration)
         {
-
-            return false;
+            bool success;
+            try
+            {
+                int index = garage.GetIndexByRegistration(registration);
+                success = garage.RemoveVehicleByIndex(index);
+            }
+            catch (Exception)
+            {
+                uI.WriteLine($"Inget fordon med registreringsnummer \"{registration.ToUpper()}\" är parkerat i detta garage.");
+                return false;
+            }
+            if (!success)
+            {
+                uI.WriteLine("Kunde inte bekräfta att fordonet togs ut ur garaget!\n(Antalet fordon i garaget minskade inte vid uttaget.)");
+                return false;
+            }
+             return true;
         }
     }
 }

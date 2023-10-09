@@ -30,7 +30,7 @@ namespace Garage
                 {
                     case 1: { Park(); break; }
                     case 2: { Collect(); break; }
-                    case 3: { SergeRegistration(); break; }
+                    case 3: { SearchRegistration(); break; }
                     case 4: { Search(); break; }
                     case 5: { List(); break; }
                     case 0: {uI.Clear(); uI.WriteLine("Hej då!"); loop = false; break; }
@@ -86,25 +86,40 @@ namespace Garage
         }
         private void Collect()
         {
-            string registration = uI.ReadLine(text: "Ange registreringsnummer: ");
-            IVehicle? tempVehicle; bool result;
-            (tempVehicle, result)= garageHandler.FindeByRegistration(registration: registration);
-            if (!result)
+            string registration = uI.ReadLine(text: "Ange registreringsnummer: ").ToUpper();
+            bool success;
+            (_, success)= garageHandler.FindeByRegistration(registration: registration);
+            if (!success)
             {
-                _ = uI.ReadLine($"{registration.ToUpper()} återfinns inte i garaget.");
+                _ = uI.ReadLine($"{registration} återfinns inte i garaget.",verify: false);
                 return;
             }
-            bool success = garageHandler.UnparkByRegistration(registration);
-            // Inte implementerad.
+            success = garageHandler.UnparkByRegistration(registration);
+            if (success)
+            {
+                uI.WriteLine($"{registration} har tagits ut ur garaget.");
+            }
+            _ = uI.ReadLine(verify: false);
         }
-        private void SergeRegistration()
+        private void SearchRegistration()
         {
-            // Inte implementerad.
+            string registration = uI.ReadLine("Ange registreringsnummer: ").ToUpper();
+            IVehicle? vehicle; bool success;
+            (vehicle,success) = garageHandler.FindeByRegistration(registration: registration);
+            if (success)
+            { 
+                uI.WriteVehicle(vehicle!); 
+            }
+            else
+            {
+                _ = uI.ReadLine($"{registration} återfinns inte i garaget.", verify: false);
+            }
         }
         private void Search()
         {
-            _ = uI.ReadLine("Testar att söka på registreringsnummer: [ABC123].", verify: false);
-            bool gotIt = garageHandler.Find(registration: "abc123");
+            _ = uI.ReadLine("Testar att söka på : Märke = Volvo; Modell = V70.", verify: false);
+            bool gotIt = garageHandler.Find(brand: "Volvo",
+                                            model: "V70");
             if (!gotIt) { uI.WriteLine("Inga fordon machade din sökning."); }
             _ = uI.ReadLine(verify: false);
             // Inte implementerad.

@@ -84,9 +84,13 @@ namespace Garage
                                     string? collor = null,
                                     int? nrOfWheels = null)
         {
-            registration = registration!.ToUpper();
             IEnumerable<T> tempVehicles;
-            tempVehicles = this.vehicles.Where(v => v.Registration == registration);
+            tempVehicles = vehicles.Where(v => (string.IsNullOrEmpty(registration) || v.Registration.Equals(registration, StringComparison.OrdinalIgnoreCase))
+                                            && (string.IsNullOrEmpty(brand) || v.Brand.Equals(brand, StringComparison.OrdinalIgnoreCase))
+                                            && (string.IsNullOrEmpty(model) || v.Model.Equals(model, StringComparison.OrdinalIgnoreCase))
+                                            && (!year.HasValue || v.Year.Equals(year))
+                                            && (string.IsNullOrEmpty(collor) || v.Collor.Equals(collor, StringComparison.OrdinalIgnoreCase))
+                                            && (!nrOfWheels.HasValue || v.NrOfWheels.Equals(nrOfWheels)));
             return tempVehicles;
         }
         public void RemoveAllVehicles()
