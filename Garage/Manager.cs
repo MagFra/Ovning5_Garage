@@ -86,6 +86,15 @@ namespace Garage
         }
         private void Collect()
         {
+            string registration = uI.ReadLine(text: "Ange registreringsnummer: ");
+            IVehicle? tempVehicle; bool result;
+            (tempVehicle, result)= garageHandler.FindeByRegistration(registration: registration);
+            if (!result)
+            {
+                _ = uI.ReadLine($"{registration.ToUpper()} återfinns inte i garaget.");
+                return;
+            }
+            bool success = garageHandler.UnparkByRegistration(registration);
             // Inte implementerad.
         }
         private void SergeRegistration()

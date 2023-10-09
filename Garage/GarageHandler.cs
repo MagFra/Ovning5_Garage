@@ -72,5 +72,11 @@ namespace Garage
             }
             return true;
         }
+
+        internal bool UnparkByRegistration(string registration)
+        {
+
+            return false;
+        }
     }
 }
