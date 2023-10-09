@@ -1,6 +1,7 @@
 ﻿using Garage.Vehicles;
 using Garage.Interfaces;
 using System.Collections;
+using System.Linq;
 
 namespace Garage
 {
@@ -76,10 +77,30 @@ namespace Garage
             }
             return vehicles[index];
         }
-
+        public IEnumerable<T>? Find(string? registration = null,
+                                    string? brand = null,
+                                    string? model = null,
+                                    int? year = null,
+                                    string? collor = null,
+                                    int? nrOfWheels = null)
+        {
+            registration = registration!.ToUpper();
+            IEnumerable<T> tempVehicles;
+            tempVehicles = this.vehicles.Where(v => v.Registration == registration);
+            return tempVehicles;
+        }
+        public void RemoveAllVehicles()
+        {
+            T[] tempVehicles = new T[0];
+            vehicles = tempVehicles;
+            Array.Clear(vehicles);          
+        }
         public IEnumerator<T> GetEnumerator()
         {
-            yield return (T)vehicles.GetEnumerator();
+            foreach ( T vehicle in vehicles)
+            {
+                yield return vehicle;
+            }
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }

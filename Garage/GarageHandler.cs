@@ -5,15 +5,14 @@ namespace Garage
 {
     public class GarageHandler
     {
-        private readonly int capacity = 10;
         private readonly IGarage<IVehicle> garage;
-        private readonly ConsoleUI uI;
+        private readonly IUI uI;
         private int myVar;
 
         public bool HasSpace => garage.IsSpaceLeft;
-        public GarageHandler(ConsoleUI cui)
+        public GarageHandler(IUI cui, IGarage<IVehicle> garage )
         {
-            garage = new ParkingGarage<IVehicle>(capacity);
+            this.garage = garage;
             uI = cui;
         }
         public (IVehicle?,bool) FindeByRegistration(string registration)
@@ -44,7 +43,34 @@ namespace Garage
         }
         public void ListAllVehiclesInGarage()
         {
-            foreach (var vehicle in garage) { uI.WriteVehicle(vehicle: vehicle, list: true); }
+            if (garage.Length == 0)
+            {
+                uI.WriteLine("Det finns inga fordon att lista!");
+                return; 
+            }
+            uI.Clear();
+            foreach (var vehicle in garage)
+            { uI.WriteVehicle(vehicle: vehicle, list: true); }
+        }
+        public bool Find(string? registration = null,
+                         string? brand = null,
+                         string? model = null,
+                         int? year = null,
+                         string? collor = null,
+                         int? nrOfWheels = null)
+        {
+            IEnumerable<IVehicle>? tempVehicles = garage.Find(registration: registration,
+                                                              brand: brand,
+                                                              model: model,
+                                                              Year: year,
+                                                              collor: collor,
+                                                              nrOfWheels: nrOfWheels);
+            if(tempVehicles!.Count() == 0) return false;
+            foreach (var vehicle in tempVehicles!)
+            {
+                uI.WriteVehicle(vehicle: vehicle, list: true);
+            }
+            return true;
         }
     }
 }

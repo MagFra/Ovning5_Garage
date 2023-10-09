@@ -10,5 +10,12 @@
         T GetVehicleByIndex(int index);
         int GetIndexByRegistration(string registration);
         bool RemoveVehicleByIndex(int index);
+        void RemoveAllVehicles();
+        IEnumerable<T>? Find(string? registration = null,
+                             string? brand = null,
+                             string? model = null,
+                             int? Year = null,
+                             string? collor = null,
+                             int? nrOfWheels = null);
     }
 }

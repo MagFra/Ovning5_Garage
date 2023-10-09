@@ -2,7 +2,7 @@
 
 namespace Garage.UI
 {
-    public class ConsoleUI
+    public class ConsoleUI : Interfaces.IUI
     {
         public void WriteLine(string text = "") => Console.WriteLine(text);
         public string ReadLine(string text = "", bool verify = true)
@@ -19,9 +19,9 @@ namespace Garage.UI
         }
         public int ReadInt(string text)
         {
-            while (true) 
-            { 
-                if(int.TryParse(ReadLine(text), out int result)) return result;
+            while (true)
+            {
+                if (int.TryParse(ReadLine(text), out int result)) return result;
                 WriteLine("Du måste ange ett giltigt heltal.");
             }
         }

@@ -7,8 +7,8 @@ namespace Garage.Vehicles
     public class VehicleCreator : IVehicleCreator
     {
         private IMenuHandler menu;
-        private ConsoleUI uI;
-        public VehicleCreator(IMenuHandler menu, ConsoleUI uI)
+        private IUI uI;
+        public VehicleCreator(IMenuHandler menu, IUI uI)
         {
             this.menu = menu;
             this.uI = uI;

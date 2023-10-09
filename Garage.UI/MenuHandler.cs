@@ -1,11 +1,12 @@
-﻿using System.Text;
+﻿using Garage.Interfaces;
+using System.Text;
 
 namespace Garage.UI
 {
     public class MenuHandler : IMenuHandler
     {
-        private ConsoleUI uI;
-        public MenuHandler(ConsoleUI consoleUI) => uI = consoleUI;
+        private IUI uI;
+        public MenuHandler(IUI consoleUI) => uI = consoleUI;
         public int RetrieveMenuChoice(StringBuilder menuStringBuilder, int nrOfChoices, int firstChois = 0)
         // ToDo: Ska i framtiden ta emot ett IMenuObjekt.
         {

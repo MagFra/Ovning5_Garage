@@ -7,11 +7,11 @@ namespace Garage
 {
     public class Manager
     {
-        private readonly ConsoleUI uI;
+        private readonly IUI uI;
         private readonly IMenuHandler menuHandler;
         private readonly IVehicleCreator creator;
         private readonly GarageHandler garageHandler;
-        public Manager(ConsoleUI cui, IMenuHandler menuHandler, IVehicleCreator creator, GarageHandler garageHandler)
+        public Manager(IUI cui, IMenuHandler menuHandler, IVehicleCreator creator, GarageHandler garageHandler)
         { 
             uI = cui;
             this.menuHandler = menuHandler;
@@ -31,7 +31,7 @@ namespace Garage
                     case 1: { Park(); break; }
                     case 2: { Collect(); break; }
                     case 3: { SergeRegistration(); break; }
-                    case 4: { Serge(); break; }
+                    case 4: { Search(); break; }
                     case 5: { List(); break; }
                     case 0: {uI.Clear(); uI.WriteLine("Hej då!"); loop = false; break; }
                     default: { uI.Clear(); clr = false; uI.WriteLine("Du måste välja ett alternativ på menyn."); break; }
@@ -86,19 +86,35 @@ namespace Garage
         }
         private void Collect()
         {
-            // Inte impementerad.
+            // Inte implementerad.
         }
         private void SergeRegistration()
         {
-            // Inte impementerad.
+            // Inte implementerad.
         }
-        private void Serge()
+        private void Search()
         {
-            // Inte impementerad.
+            _ = uI.ReadLine("Testar att söka på registreringsnummer: [ABC123].", verify: false);
+            bool gotIt = garageHandler.Find(registration: "abc123");
+            if (!gotIt) { uI.WriteLine("Inga fordon machade din sökning."); }
+            _ = uI.ReadLine(verify: false);
+            // Inte implementerad.
         }
         private void List()
         {
-            // Inte impementerad.
+            StringBuilder menuStringBuilder = new StringBuilder();
+            menuStringBuilder.AppendLine("1. Enkel lista.");
+            menuStringBuilder.AppendLine("2. Grupperad lista.");
+            int firstChois = 1, nrOfChoises = 2;    // (1 - 2) inclusiv.
+            int chois = menuHandler.RetrieveMenuChoice(menuStringBuilder: menuStringBuilder,
+                                                       nrOfChoices: nrOfChoises,
+                                                       firstChois: firstChois);
+            switch (chois)
+            {
+                case 1: { garageHandler.ListAllVehiclesInGarage(); uI.ReadLine(verify: false) ; break; }
+                case 2: { _ = uI.ReadLine(text: "Grupperad lista har inte implementerats än!", verify: false); break; }
+            }
+            // Inte implementerad.
         }
     }
 }
