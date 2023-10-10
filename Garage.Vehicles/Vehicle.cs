@@ -7,7 +7,7 @@ namespace Garage.Vehicles
     public class Vehicle : IVehicle
     {
         private string registration = string.Empty;
-        public string Registration { get => registration; private set => registration = VerifyRegistration(value).ToUpper(); }
+        public string Registration { get ; private set; }
         public string Brand { get; private set; }
         public string Model { get; private set; }
         public int Year { get; private set; }
@@ -18,7 +18,7 @@ namespace Garage.Vehicles
 
         public Vehicle(string registation, string brand, string model, int year, string collor, int nrOfWheels)
         {
-            Registration = registation;
+            Registration = VerifyRegistration(registation).ToUpper();
             Brand = brand;
             Model = model;
             Year = year;
