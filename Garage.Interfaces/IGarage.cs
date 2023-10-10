@@ -9,6 +9,7 @@
         void AddVehicle(T vehicle);
         T GetVehicleByIndex(int index);
         int GetIndexByRegistration(string registration);
+        public IEnumerable<T> GroupedList();
         bool RemoveVehicleByIndex(int index);
         void RemoveAllVehicles();
         IEnumerable<T>? Find(string? registration = null,

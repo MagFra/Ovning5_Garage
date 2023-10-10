@@ -2,19 +2,19 @@
 
 namespace Garage
 {
-    public class GarageHandler
+    public class GarageHandler : IGarageHandler
     {
         private readonly IGarage<IVehicle> garage;
         private readonly IUI uI;
         private int myVar;
 
         public bool HasSpace => garage.IsSpaceLeft;
-        public GarageHandler(IUI cui, IGarage<IVehicle> garage )
+        public GarageHandler(IUI cui, IGarage<IVehicle> garage)
         {
             this.garage = garage;
             uI = cui;
         }
-        public (IVehicle?,bool) FindeByRegistration(string registration)
+        public (IVehicle?, bool) FindeByRegistration(string registration)
         {
             try
             {
@@ -23,11 +23,11 @@ namespace Garage
             }
             catch (Exception)
             {
-                return (null,false);
+                return (null, false);
             }
 
         }
-        public bool TryPark(IVehicle vehicle) 
+        public bool TryPark(IVehicle vehicle)
         {
             if (!garage.IsSpaceLeft) return false;
             try
@@ -40,16 +40,25 @@ namespace Garage
             }
             return true;
         }
-        public void ListAllVehiclesInGarage()
+        public void ListAllVehiclesInGarage(bool group = false)
         {
             if (garage.Length == 0)
             {
                 uI.WriteLine("Det finns inga fordon att lista!");
-                return; 
+                return;
             }
             uI.Clear();
-            foreach (var vehicle in garage)
-            { uI.WriteVehicle(vehicle: vehicle, list: true); }
+            if (!group)
+            {
+                foreach (var vehicle in garage)
+                { uI.WriteVehicle(vehicle: vehicle, list: true); }
+            }
+            else
+            {
+                IEnumerable<IVehicle> list = garage.GroupedList();
+                foreach (var vehicle in list)
+                { uI.WriteVehicle(vehicle: vehicle, list: true); }
+            }
         }
         public bool Find(string? registration = null,
                          string? brand = null,
@@ -64,8 +73,8 @@ namespace Garage
                                                               Year: year,
                                                               collor: collor,
                                                               nrOfWheels: nrOfWheels);
-            if(tempVehicles!.Count() == 0) return false;
-            uI.Clear(); uI.WriteLine("Hittade följande fordon:\n");
+            if (tempVehicles!.Count() == 0) return false;
+            uI.Clear(); uI.WriteLine($"Hittade följande {tempVehicles!.Count()} fordon:\n");
             foreach (var vehicle in tempVehicles!)
             {
                 uI.WriteVehicle(vehicle: vehicle, list: true);
@@ -91,7 +100,7 @@ namespace Garage
                 uI.WriteLine("Kunde inte bekräfta att fordonet togs ut ur garaget!\n(Antalet fordon i garaget minskade inte vid uttaget.)");
                 return false;
             }
-             return true;
+            return true;
         }
     }
 }

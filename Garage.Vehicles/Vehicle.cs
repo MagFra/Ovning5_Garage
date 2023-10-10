@@ -15,6 +15,7 @@ namespace Garage.Vehicles
         public int NrOfWheels { get; private set; }
 
 
+
         public Vehicle(string registation, string brand, string model, int year, string collor, int nrOfWheels)
         {
             Registration = registation;

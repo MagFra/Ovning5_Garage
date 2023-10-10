@@ -1,18 +1,16 @@
-﻿using Garage.Interfaces;
-using Garage.UI;
-using Garage.Vehicles;
+﻿using Garage.UI;
 using System.Text;
 
-namespace Garage
+namespace Garage.Interfaces
 {
-    public class Manager
+    public class Manager : IManager
     {
         private readonly IUI uI;
         private readonly IMenuHandler menuHandler;
         private readonly IVehicleCreator creator;
-        private readonly GarageHandler garageHandler;
-        public Manager(IUI cui, IMenuHandler menuHandler, IVehicleCreator creator, GarageHandler garageHandler)
-        { 
+        private readonly IGarageHandler garageHandler;
+        public Manager(IUI cui, IMenuHandler menuHandler, IVehicleCreator creator, IGarageHandler garageHandler)
+        {
             uI = cui;
             this.menuHandler = menuHandler;
             this.creator = creator;
@@ -26,14 +24,14 @@ namespace Garage
             {
                 if (clr) { uI.Clear(); }
                 clr = true;
-                switch (MainMenu()) 
+                switch (MainMenu())
                 {
                     case 1: { Park(); break; }
                     case 2: { Collect(); break; }
                     case 3: { SearchRegistration(); break; }
                     case 4: { Search(); break; }
                     case 5: { List(); break; }
-                    case 0: {uI.Clear(); uI.WriteLine("Hej då!"); loop = false; break; }
+                    case 0: { uI.Clear(); uI.WriteLine("Hej då!"); loop = false; break; }
                     default: { uI.Clear(); clr = false; uI.WriteLine("Du måste välja ett alternativ på menyn."); break; }
                 }
             }
@@ -54,28 +52,28 @@ namespace Garage
         }
         private void Park()
         {
-            if(!garageHandler.HasSpace)
+            if (!garageHandler.HasSpace)
             {
                 uI.WriteLine("Vi kan tyvärr inte parkera några nya fordon just nu. Garget är fullt.");
                 _ = uI.ReadLine(verify: false);
                 return;
             }
             IVehicle newVehicle = creator.CreateNewVehicle();
-            _ = uI.ReadLine(verify:false);
+            _ = uI.ReadLine(verify: false);
             uI.Clear();
             uI.WriteLine("Du har registrerat:");
             uI.WriteVehicle(vehicle: newVehicle, list: true);
             string registration = newVehicle.Registration;
             IVehicle? oldVehicle; bool result;
-            (oldVehicle, result ) = garageHandler.FindeByRegistration(registration: registration);
-            if(result)
+            (oldVehicle, result) = garageHandler.FindeByRegistration(registration: registration);
+            if (result)
             {
                 uI.WriteLine("Du kan inte parkera här!\nDet finns redan ett fordon med samma registreringsnummer parkerat här.");
-                _ = uI.ReadLine(verify:false);
+                _ = uI.ReadLine(verify: false);
                 return;
             }
             result = garageHandler.TryPark(vehicle: newVehicle);
-            if(!result)
+            if (!result)
             {
                 uI.WriteLine("Okänt fel vid parkeringen!\nTrots våra rigorösa kontroller av både utrymme i garaget och att det inte är en dublett av registreringsnumret, så verkar det som om något av dem förhindrare oss att parkera ditt fordon.");
                 _ = uI.ReadLine(verify: false);
@@ -88,10 +86,10 @@ namespace Garage
         {
             string registration = uI.ReadLine(text: "Ange registreringsnummer: ").ToUpper();
             bool success;
-            (_, success)= garageHandler.FindeByRegistration(registration: registration);
+            (_, success) = garageHandler.FindeByRegistration(registration: registration);
             if (!success)
             {
-                _ = uI.ReadLine($"{registration} återfinns inte i garaget.",verify: false);
+                _ = uI.ReadLine($"{registration} återfinns inte i garaget.", verify: false);
                 return;
             }
             success = garageHandler.UnparkByRegistration(registration);
@@ -105,10 +103,10 @@ namespace Garage
         {
             string registration = uI.ReadLine("Ange registreringsnummer: ").ToUpper();
             IVehicle? vehicle; bool success;
-            (vehicle,success) = garageHandler.FindeByRegistration(registration: registration);
+            (vehicle, success) = garageHandler.FindeByRegistration(registration: registration);
             if (success)
-            { 
-                uI.WriteVehicle(vehicle!); 
+            {
+                uI.WriteVehicle(vehicle!);
             }
             else
             {
@@ -119,7 +117,7 @@ namespace Garage
         {
             string? registrtion = string.Empty, brand = string.Empty, model = string.Empty, collor = string.Empty, sYear, sNrOfWheels, svar; int? year = 0, nrOfWheels = 0;
             bool loop = true;
-            while(loop)
+            while (loop)
             {
                 StringBuilder explonationSB = new StringBuilder();
                 explonationSB.AppendLine("Här får du möjligheten att söka på flera olika fordonsegenskaper!\n");
@@ -173,8 +171,8 @@ namespace Garage
                                                        firstChois: firstChois);
             switch (chois)
             {
-                case 1: { garageHandler.ListAllVehiclesInGarage(); uI.ReadLine(verify: false) ; break; }
-                case 2: { _ = uI.ReadLine(text: "Grupperad lista har inte implementerats än!", verify: false); break; }
+                case 1: { garageHandler.ListAllVehiclesInGarage(); _ = uI.ReadLine(verify: false); break; }
+                case 2: { garageHandler.ListAllVehiclesInGarage(group: true); _ = uI.ReadLine(verify: false); break; }
             }
             // Inte implementerad.
         }

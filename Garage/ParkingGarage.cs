@@ -99,6 +99,7 @@ namespace Garage
             vehicles = tempVehicles;
             Array.Clear(vehicles);          
         }
+        public IEnumerable<T> GroupedList() => vehicles.GroupBy(v => v.GetType()).SelectMany(v => v).ToList();
         public IEnumerator<T> GetEnumerator()
         {
             foreach ( T vehicle in vehicles)
