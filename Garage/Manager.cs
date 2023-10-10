@@ -117,12 +117,50 @@ namespace Garage
         }
         private void Search()
         {
-            _ = uI.ReadLine("Testar att söka på : Märke = Volvo; Modell = V70.", verify: false);
-            bool gotIt = garageHandler.Find(brand: "Volvo",
-                                            model: "V70");
+            string? registrtion, brand, model, collor, sYear, sNrOfWheels, svar; int? year, nrOfWheels;
+            bool loop = true;
+            while(loop)
+            {
+                StringBuilder explonationSB = new StringBuilder();
+                explonationSB.AppendLine("Här får du möjligheten att söka på flera olika fordonsegenskaper!\n");
+                explonationSB.AppendLine("Du kommer att tillfrågas om sökkriterier för en egenskap i taget,");
+                explonationSB.AppendLine("och om du vill söka på en egenskap skriver du ett sökkriterium,");
+                explonationSB.AppendLine("annars trycker du bara retur för att komma till nästa.");
+                explonationSB.AppendLine("När alla egenskaper gåtts igenom så får du en sammanfattning av dina val");
+                explonationSB.AppendLine("samt en möjlighet att utföra sökningen (J),");
+                explonationSB.AppendLine("ändra på sökningen (N) eller ");
+                explonationSB.Append("avbryta och återgå till huvudmenyn (A).");
+                string explonationText = explonationSB.ToString();
+                uI.Clear(); uI.WriteLine(explonationText);
+
+                registrtion = uI.ReadLine(text: "Vad vill du söka efter på Registreringsnummer?:", verify: false).ToUpper()!;
+                brand = uI.ReadLine(text: "Vad vill du söka efter på Märke?:", verify: false)!;
+                model = uI.ReadLine(text: "Vad vill du söka efter på Modell?:", verify: false)!;
+                sYear = uI.ReadLine(text: "Vad vill du söka efter på Årsmodell?:", verify: false)!;
+                collor = uI.ReadLine(text: "Vad vill du söka efter på Färg?:", verify: false)!;
+                sNrOfWheels = uI.ReadLine(text: "Vad vill du söka efter på Antal hjul?:", verify: false)!;
+
+                uI.WriteLine("\nDu vill söka på:");
+                if (string.IsNullOrWhiteSpace(registrtion)) { registrtion = null!; } else { uI.WriteLine($"Registretingsnummer:\t[{registrtion}]"); }
+                if (string.IsNullOrWhiteSpace(brand)) { brand = null!; } else { uI.WriteLine($"Märke:\t[{brand}]"); }
+                if (string.IsNullOrWhiteSpace(model)) { model = null!; } else { uI.WriteLine($"Modell:\t[{model}]"); }
+                if (!int.TryParse(sYear, out int result1)) { year = null!; } else { year = result1; uI.WriteLine($"Årsmodell:\t[{year}]"); }
+                if (string.IsNullOrWhiteSpace(collor)) { collor = null!; } else { uI.WriteLine($"Färg:\t[{collor}]"); }
+                if (!int.TryParse(sNrOfWheels, out int result2)) { nrOfWheels = null!; } else { nrOfWheels = result2; uI.WriteLine($"Antal hjul:\t[{nrOfWheels}]"); }
+
+                svar = uI.ReadLine("Stämmer det? (J/N/A)").ToUpper();
+                if (svar.Contains('A')) { return; }
+                if (svar.Contains('J')) { loop = false; }
+            }
+            // registrtion = "ABC123";
+            bool gotIt = garageHandler.Find(registration: registrtion!,
+                                            brand: brand!,
+                                            model: model!,
+                                            year: year!,
+                                            collor: collor!,
+                                            nrOfWheels: nrOfWheels!);
             if (!gotIt) { uI.WriteLine("Inga fordon machade din sökning."); }
             _ = uI.ReadLine(verify: false);
-            // Inte implementerad.
         }
         private void List()
         {

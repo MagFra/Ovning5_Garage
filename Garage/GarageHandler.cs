@@ -72,7 +72,7 @@ namespace Garage
             return true;
         }
 
-        internal bool UnparkByRegistration(string registration)
+        public bool UnparkByRegistration(string registration)
         {
             bool success;
             try
