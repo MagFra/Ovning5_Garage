@@ -12,7 +12,7 @@ namespace Garage.UI
             {
                 Console.Write(text);
                 line = Console.ReadLine();
-                if (!verify) { return string.Empty; }
+                if (!verify) { return string.IsNullOrWhiteSpace(line) ? string.Empty : line; }
                 if (string.IsNullOrEmpty(line)) { WriteLine("Du måste skriva något."); }
             } while (string.IsNullOrEmpty(line));
             return line;

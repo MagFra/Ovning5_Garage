@@ -117,7 +117,7 @@ namespace Garage
         }
         private void Search()
         {
-            string? registrtion, brand, model, collor, sYear, sNrOfWheels, svar; int? year, nrOfWheels;
+            string? registrtion = string.Empty, brand = string.Empty, model = string.Empty, collor = string.Empty, sYear, sNrOfWheels, svar; int? year = 0, nrOfWheels = 0;
             bool loop = true;
             while(loop)
             {
@@ -129,7 +129,7 @@ namespace Garage
                 explonationSB.AppendLine("När alla egenskaper gåtts igenom så får du en sammanfattning av dina val");
                 explonationSB.AppendLine("samt en möjlighet att utföra sökningen (J),");
                 explonationSB.AppendLine("ändra på sökningen (N) eller ");
-                explonationSB.Append("avbryta och återgå till huvudmenyn (A).");
+                explonationSB.Append("avbryta och återgå till huvudmenyn (A).\n");
                 string explonationText = explonationSB.ToString();
                 uI.Clear(); uI.WriteLine(explonationText);
 

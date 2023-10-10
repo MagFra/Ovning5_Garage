@@ -65,6 +65,7 @@ namespace Garage
                                                               collor: collor,
                                                               nrOfWheels: nrOfWheels);
             if(tempVehicles!.Count() == 0) return false;
+            uI.Clear(); uI.WriteLine("Hittade följande fordon:\n");
             foreach (var vehicle in tempVehicles!)
             {
                 uI.WriteVehicle(vehicle: vehicle, list: true);
