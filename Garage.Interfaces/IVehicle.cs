@@ -1,4 +1,6 @@
-﻿namespace Garage.Interfaces
+﻿using System;
+
+namespace Garage.Interfaces
 {
     public interface IVehicle
     {

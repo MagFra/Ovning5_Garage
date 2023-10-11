@@ -13,22 +13,22 @@ IConfiguration config = new ConfigurationBuilder()
                                 .Build();
 var capacity = int.Parse(config.GetSection("Garage:capacity").Value!);
 
-//var host = Host.CreateDefaultBuilder(args)
-//               .ConfigureServices(services =>
-//               {
-//                   services.AddSingleton<IConfiguration>(config);
-//                   services.AddSingleton<IUI, ConsoleUI>();
-//                   services.AddSingleton<IMenuHandler, MenuHandler>();
-//                   services.AddSingleton<IGarage<IVehicle>, ParkingGarage<IVehicle>>();
-//                   services.AddSingleton<IGarageHandler, GarageHandler>();
-//                   services.AddSingleton<IManager, Manager>();
-//                   services.AddSingleton<IVehicleCreator, VehicleCreator>();
-//               })
-//               .UseConsoleLifetime()
-//               .Build();
-// host.Services.GetRequiredService<IManager>().Do();
+var host = Host.CreateDefaultBuilder(args)
+               .ConfigureServices(services =>
+               {
+                   services.AddSingleton<IConfiguration>(config);
+                   services.AddSingleton<IUI, ConsoleUI>();
+                   services.AddSingleton<IMenuHandler, MenuHandler>();
+                   services.AddSingleton<IGarage<IVehicle>, ParkingGarage<IVehicle>>();
+                   // Det saknas "capacity" i raden ovanför!
+                   services.AddSingleton<IGarageHandler, GarageHandler>();
+                   services.AddSingleton<IManager, Manager>();
+                   services.AddSingleton<IVehicleCreator, VehicleCreator>();
+               })
+               .UseConsoleLifetime()
+               .Build();
+//host.Services.GetRequiredService<IManager>().Do();
 
-// Det sket sig när något efterfrågade IVehicle. Efter som det ska vara flera fordon vågar jag inte göra en "Singleton". Så jag gick tillbaka till det som fugerade.
 
 IUI uI = new ConsoleUI();
 IMenuHandler menuHandler = new MenuHandler(consoleUI: uI);
